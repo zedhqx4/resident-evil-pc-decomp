@@ -156,6 +156,10 @@ void  MarniDrawTrianglesPersp(const float* verts, int triCount, MarniHandle tex,
 // logical video resolution while the swapchain keeps the window size).
 void  MarniGetRenderScale(float* outScaleX, float* outScaleY);
 
+// Screen-Space This is used to retain Aspec Ratio and render in integer scale
+void MarniGetRenderViewport(float* outScale, float* outOffsetX,
+                            float* outOffsetY);
+
 // Create a texture from raw host pixels; returns an opaque MarniHandle.
 // bpp may be 4, 8, 16, 24, or 32. On success the handle is written to
 // *outTex (if non-NULL) and the function returns TRUE, otherwise FALSE.
