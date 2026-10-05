@@ -35,6 +35,8 @@ struct MarniDX::Impl {
     SDL_GLContext ctx    = nullptr;
     int  width  = 0;
     int  height = 0;
+    int renderWidth  = 0;
+    int renderHeight = 0;
     bool ready  = false;
 
     GLuint program = 0;
@@ -222,8 +224,8 @@ static void DrawBatch(MarniDX::Impl* p, const float* verts, int vertexCount,
 
     // Y-down ortho: (0,0) top-left -> NDC (-1,+1).
     float mvp[16] = {0};
-    mvp[0]  = 2.0f / (float)p->width;
-    mvp[5]  = -2.0f / (float)p->height;
+    mvp[0]  = 2.0f / (float)p->renderWidth;
+    mvp[5]  = -2.0f / (float)p->renderHeight;
     mvp[10] = 1.0f;
     mvp[12] = -1.0f;
     mvp[13] = 1.0f;
@@ -328,6 +330,9 @@ BOOL MarniDX::Create(HWND hWnd, int width, int height, BOOL fullScreen,
     SDL_GL_GetDrawableSize(p->window, &dw, &dh);
     p->width  = (dw > 0) ? dw : width;
     p->height = (dh > 0) ? dh : height;
+
+    p->renderWidth  = 1280;
+    p->renderHeight = 960;
 
     if (!BuildPipeline(p)) return FALSE;
 
