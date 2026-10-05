@@ -109,6 +109,10 @@ public:
     // Flip the back buffer to the front (was vtable[4] Present / 0x00448ff0).
     void Present();
 
+    // Restrict the rasterized area to a sub-rectangle for the current frame.
+    // Used by the frame governor to clamp the 3D draw region to the viewport.
+    void SetScissorRect(int x, int y, int w, int h);
+
     // ----------------------------------------------------------------------
     // Texture handle management
     // ----------------------------------------------------------------------
