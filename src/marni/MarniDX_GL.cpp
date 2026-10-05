@@ -760,6 +760,26 @@ int MarniDX::FontTextureHeight() const
 }
 
 // ---------------------------------------------------------------------------
+// Scissor rect
+// ---------------------------------------------------------------------------
+
+void MarniDX::SetScissorRect(int x, int y, int w, int h)
+{
+    Impl* p = m_pImpl;
+    if (p == nullptr || !p->ready) return;
+
+    if (w <= 0 || h <= 0) {
+        glDisable(GL_SCISSOR_TEST);
+        return;
+    }
+
+    // OpenGL's origin is lower-left; callers give top-left coords, so convert.
+    const int glY = p->height - (y + h);
+    glEnable(GL_SCISSOR_TEST);
+    glScissor(x, glY, w, h);
+}
+
+// ---------------------------------------------------------------------------
 // Globals
 // ---------------------------------------------------------------------------
 
